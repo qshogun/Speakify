@@ -4,7 +4,9 @@ trigger:
       - main
 
 pool:
-  vmImage: 'ubuntu-latest'
+  name: Default
+  demands:
+  - agent.name -equals DESKTOP-EA20D4P
 
 variables:
   buildConfiguration: 'Release'
