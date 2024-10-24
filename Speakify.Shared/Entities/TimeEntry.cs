@@ -8,6 +8,7 @@ public class TimeEntry
     public DateTime? EndUtc { get; set; }
     public DateTime CreatedAtOtc { get; init; } = DateTime.UtcNow;
     public DateTime? UpdatedUtc { get; set; }
+    public string Description { get; set; }
 }
 
 public record TimeEntryId(Guid Id)
