@@ -11,7 +11,6 @@ public class TimeEntryRepository : ITimeEntryRepository
         _context = context;
     }
 
-    private static List<TimeEntry> _timeEntries = [];
     public async Task<List<TimeEntry>> CreateTimeEntry(TimeEntry timeEntry)
     {
         _context.TimeEntries.Add(timeEntry);
@@ -20,35 +19,41 @@ public class TimeEntryRepository : ITimeEntryRepository
         return await _context.TimeEntries.ToListAsync();
     }
 
-    public List<TimeEntry> DeleteAllTimeEntries()
+    public async Task<List<TimeEntry>> DeleteAllTimeEntries()
     {
-        _timeEntries.Clear();
-        return _timeEntries;
+        _context.TimeEntries.RemoveRange(_context.TimeEntries);
+        await _context.SaveChangesAsync();
+
+        return await _context.TimeEntries.ToListAsync() ;
     }
 
-    public List<TimeEntry>? DeleteTimeEntry(Guid id)
+    public async Task<List<TimeEntry>?> DeleteTimeEntry(Guid id)
     {
-        var timeEntry = _timeEntries.FirstOrDefault(te => te.Id == id);
+        var timeEntry = await _context.TimeEntries.FirstOrDefaultAsync(te => te.Id == id);
         
         switch (timeEntry)
         {
             case null:
                 return null;
             default:
-                _timeEntries.Remove(timeEntry);
-                return _timeEntries;
+                _context.TimeEntries.Remove(timeEntry);
+                await _context.SaveChangesAsync();
+                return await _context.TimeEntries.ToListAsync();
         }
     }
 
-    public List<TimeEntry> GetAllTimeEntries() => _timeEntries;
+    public async Task<List<TimeEntry>> GetAllTimeEntries() => 
+        await _context.TimeEntries.ToListAsync();
 
-    public TimeEntry? GetTimeEntry(Guid id) => _timeEntries.FirstOrDefault(timeEntry => timeEntry.Id == id);
+    public async Task<TimeEntry?> GetTimeEntry(Guid id) => 
+        await _context.TimeEntries.FirstOrDefaultAsync(timeEntry => timeEntry.Id == id);
 
-    public TimeEntry? UpdateTimeEntry(Guid id, TimeEntry updatedTimeEntry)
+    public async Task<TimeEntry?> UpdateTimeEntry(Guid id, TimeEntry updatedTimeEntry)
     {
-        if (!_timeEntries.Exists(te => te.Id == id)) return null;
+        TimeEntry? timeEntry = await _context.TimeEntries.FirstOrDefaultAsync(te => te.Id == id);
 
-        TimeEntry timeEntry = _timeEntries.First(te => te.Id == id);
+        if (timeEntry is null) return null;
+        
         bool isUpdated = false;
 
         if (!timeEntry.ProjectName.Equals(updatedTimeEntry.ProjectName, StringComparison.InvariantCultureIgnoreCase))
@@ -78,7 +83,10 @@ public class TimeEntryRepository : ITimeEntryRepository
             timeEntry.UpdatedUtc = DateTime.UtcNow;
         }
 
-        return timeEntry;
+        _context.TimeEntries.Update(timeEntry);
+        await _context.SaveChangesAsync();
+
+        return await _context.TimeEntries.FindAsync(timeEntry);
     }
 
 }

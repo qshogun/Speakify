@@ -4,10 +4,10 @@ namespace Speakify.API.Repositories;
 
 public interface ITimeEntryRepository
 {
-    List<TimeEntry> GetAllTimeEntries();
-    TimeEntry? GetTimeEntry(Guid id);
+    Task<List<TimeEntry>> GetAllTimeEntries();
+    Task<TimeEntry?> GetTimeEntry(Guid id);
     Task<List<TimeEntry>> CreateTimeEntry(TimeEntry timeEntry);
-    List<TimeEntry>? DeleteTimeEntry(Guid id);
-    List<TimeEntry> DeleteAllTimeEntries();
-    TimeEntry? UpdateTimeEntry(Guid id, TimeEntry updatedTimeEntry);
+    Task<List<TimeEntry>?> DeleteTimeEntry(Guid id);
+    Task<List<TimeEntry>> DeleteAllTimeEntries();
+    Task<TimeEntry?> UpdateTimeEntry(Guid id, TimeEntry updatedTimeEntry);
 }
