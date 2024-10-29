@@ -1,6 +1,14 @@
 ﻿namespace Speakify.API.Data;
 
-public class DataContext(DbContextOptions<DbContext> options) : DbContext(options)
+public class DataContext : DbContext
 {
+    public DataContext()
+    {    
+    }
+
+    public DataContext(DbContextOptions<DataContext> options) : base(options)
+    {
+    }
+
     public DbSet<TimeEntry> TimeEntries { get; set; }
 }
