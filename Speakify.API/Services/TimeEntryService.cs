@@ -1,7 +1,4 @@
 ﻿using Mapster;
-using Speakify.API.Repositories;
-using Speakify.Shared.Entities;
-using Speakify.Shared.Models.TimeEntry;
 
 namespace Speakify.API.Services;
 
@@ -16,31 +13,34 @@ public class TimeEntryService(ITimeEntryRepository timeEntryRepository) : ITimeE
         return result.Adapt<List<TimeEntryResponse>>();
     }
 
-    public List<TimeEntryResponse> DeleteAllTimeEntries()
+    public async Task<List<TimeEntryResponse>> DeleteAllTimeEntries()
     {
-        var result = _timeEntryRepository.DeleteAllTimeEntries();
+        var result = await _timeEntryRepository.DeleteAllTimeEntries();
         return result.Adapt<List<TimeEntryResponse>>();
     }
 
-    public List<TimeEntryResponse>? DeleteTimeEntry(Guid id)
+    public async Task<List<TimeEntryResponse?>> DeleteTimeEntry(Guid id)
     {
-        var result = _timeEntryRepository.DeleteTimeEntry(id);
-        return result?.Adapt<List<TimeEntryResponse>>();
+        var result = await _timeEntryRepository.DeleteTimeEntry(id);
+        return result.Adapt<List<TimeEntryResponse?>>();
     }
 
-    public List<TimeEntryResponse> GetAllTimeEntries()
+    public async Task<List<TimeEntryResponse>> GetAllTimeEntries()
     {
-        var result = _timeEntryRepository.GetAllTimeEntries();
+        var result = await _timeEntryRepository.GetAllTimeEntries();
         return result.Adapt<List<TimeEntryResponse>>();
     }
 
-    public TimeEntryResponse? GetTimeEntry(Guid id) =>
-        _timeEntryRepository.GetTimeEntry(id)?.Adapt<TimeEntryResponse>();
+    public async Task<TimeEntryResponse?> GetTimeEntry(Guid id)
+    {
+        var result = await _timeEntryRepository.GetTimeEntry(id);
+        return result.Adapt<TimeEntryResponse>();
+    }
 
-    public TimeEntryResponse? UpdateTimeEntry(Guid timeEntryId, TimeEntryUpdateRequest timeEntryUpdateRequest)
+    public async Task<TimeEntryResponse?> UpdateTimeEntry(Guid timeEntryId, TimeEntryUpdateRequest timeEntryUpdateRequest)
     {
         TimeEntry updatedTimeEntry = timeEntryUpdateRequest.Adapt<TimeEntry>();
-        var result = _timeEntryRepository.UpdateTimeEntry(timeEntryId, updatedTimeEntry);
+        var result = await _timeEntryRepository.UpdateTimeEntry(timeEntryId, updatedTimeEntry);
 
         return result?.Adapt<TimeEntryResponse>();
     }
