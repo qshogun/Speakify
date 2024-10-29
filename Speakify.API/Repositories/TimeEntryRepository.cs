@@ -4,11 +4,20 @@ namespace Speakify.API.Repositories;
 
 public class TimeEntryRepository : ITimeEntryRepository
 {
-    private static List<TimeEntry> _timeEntries = [];
-    public List<TimeEntry> CreateTimeEntry(TimeEntry timeEntry)
+    private readonly DataContext _context;
+
+    public TimeEntryRepository(DataContext context)
     {
-        _timeEntries.Add(timeEntry);
-        return _timeEntries;
+        _context = context;
+    }
+
+    private static List<TimeEntry> _timeEntries = [];
+    public async Task<List<TimeEntry>> CreateTimeEntry(TimeEntry timeEntry)
+    {
+        _context.TimeEntries.Add(timeEntry);
+        await _context.SaveChangesAsync();
+
+        return await _context.TimeEntries.ToListAsync();
     }
 
     public List<TimeEntry> DeleteAllTimeEntries()

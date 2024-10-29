@@ -7,7 +7,7 @@ public interface ITimeEntryService
 {
     List<TimeEntryResponse> GetAllTimeEntries();
     TimeEntryResponse? GetTimeEntry(Guid id);
-    List<TimeEntryResponse> CreateTimeEntry(TimeEntryCreateRequest timeEntryCreateRequest);
+    Task<List<TimeEntryResponse>> CreateTimeEntry(TimeEntryCreateRequest timeEntryCreateRequest);
     List<TimeEntryResponse> DeleteAllTimeEntries();
     List<TimeEntryResponse>? DeleteTimeEntry(Guid id);
     TimeEntryResponse? UpdateTimeEntry(Guid id, TimeEntryUpdateRequest timeEntryUpdateRequest);

@@ -23,9 +23,9 @@ public class TimeEntryController(ITimeEntryService timeEntryService) : Controlle
     }
 
     [HttpPost]
-    public ActionResult<List<TimeEntryResponse>> CreateTimeEntry(TimeEntryCreateRequest timeEntryCreateRequest)
+    public async Task<ActionResult<List<TimeEntryResponse>>> CreateTimeEntry(TimeEntryCreateRequest timeEntryCreateRequest)
     {
-        return Ok(_timeEntryService.CreateTimeEntry(timeEntryCreateRequest));
+        return Ok(await _timeEntryService.CreateTimeEntry(timeEntryCreateRequest));
     }
 
     [HttpPut("{timeEntryId}")]

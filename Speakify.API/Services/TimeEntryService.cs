@@ -9,10 +9,10 @@ public class TimeEntryService(ITimeEntryRepository timeEntryRepository) : ITimeE
 {
     private readonly ITimeEntryRepository _timeEntryRepository = timeEntryRepository;
 
-    public List<TimeEntryResponse> CreateTimeEntry(TimeEntryCreateRequest timeEntryCreateRequest)
+    public async Task<List<TimeEntryResponse>> CreateTimeEntry(TimeEntryCreateRequest timeEntryCreateRequest)
     {
         TimeEntry timeEntry = timeEntryCreateRequest.Adapt<TimeEntry>();
-        var result = _timeEntryRepository.CreateTimeEntry(timeEntry);
+        var result = await _timeEntryRepository.CreateTimeEntry(timeEntry);
         return result.Adapt<List<TimeEntryResponse>>();
     }
 
