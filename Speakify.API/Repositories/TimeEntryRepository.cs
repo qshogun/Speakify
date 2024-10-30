@@ -1,6 +1,4 @@
-﻿using Speakify.Shared.Entities;
-
-namespace Speakify.API.Repositories;
+﻿namespace Speakify.API.Repositories;
 
 public class TimeEntryRepository : ITimeEntryRepository
 {
@@ -86,7 +84,6 @@ public class TimeEntryRepository : ITimeEntryRepository
         _context.TimeEntries.Update(timeEntry);
         await _context.SaveChangesAsync();
 
-        return await _context.TimeEntries.FindAsync(timeEntry);
+        return await _context.TimeEntries.FindAsync(timeEntry.Id);
     }
-
 }
