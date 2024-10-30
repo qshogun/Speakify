@@ -1,6 +1,6 @@
 @Speakify.API_HostAddress = http://localhost:5106
 
-GET {{Speakify.API_HostAddress}}/weatherforecast/
+GET {{Speakify.API_HostAddress}}/api/TimeEntry
 Accept: application/json
 
 ###
