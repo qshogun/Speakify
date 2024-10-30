@@ -16,8 +16,22 @@ public class TimeEntryController(ITimeEntryService timeEntryService) : Controlle
     [HttpGet("{timeEntryId}")]
     public async Task<ActionResult<TimeEntryResponse>> GetTimeEntry(Guid timeEntryId)
     {
-        var result = await _timeEntryService.GetTimeEntry(timeEntryId);
-        return result is null ? NotFound("TimeEntry with the given ID was not found") : Ok(result);
+        try
+        {
+            var result = await _timeEntryService.GetTimeEntry(timeEntryId);
+
+            return Ok(result);
+        }
+
+        catch (ApplicationException)
+        {
+            return NotFound("TimeEntry with the given ID was not found");
+        }
+
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPost]
@@ -29,15 +43,41 @@ public class TimeEntryController(ITimeEntryService timeEntryService) : Controlle
     [HttpPut("{timeEntryId}")]
     public async Task<ActionResult<TimeEntryResponse>> UpdateTimeEntry(Guid timeEntryId, TimeEntryUpdateRequest timeEntryUpdateRequest)
     {
-        var result = await _timeEntryService.UpdateTimeEntry(timeEntryId, timeEntryUpdateRequest);
-        return result is null ? NotFound("TimeEntry with the given ID was not found") : Ok(result);
+        try
+        {
+            var result = await _timeEntryService.UpdateTimeEntry(timeEntryId, timeEntryUpdateRequest);
+            return Ok(result);
+        }
+
+        catch (ApplicationException)
+        {
+            return NotFound("TimeEntry with the given ID was not found");
+        }
+
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpDelete("{timeEntryId}")]
     public async Task<ActionResult<TimeEntryResponse>> DeleteTimeEntry(Guid timeEntryId)
     {
-        var result = await _timeEntryService.DeleteTimeEntry(timeEntryId);
-        return result is null ? NotFound("TimeEntry with the given ID was not found") : Ok(result);
+        try
+        {
+            var result = await _timeEntryService.DeleteTimeEntry(timeEntryId);
+            return Ok(result);
+        }
+
+        catch (ApplicationException)
+        {
+            return NotFound("TimeEntry with the given ID was not found");
+        }
+
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpDelete]
