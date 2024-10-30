@@ -25,14 +25,14 @@ public class TimeEntryRepository : ITimeEntryRepository
         return await _context.TimeEntries.ToListAsync() ;
     }
 
-    public async Task<List<TimeEntry>?> DeleteTimeEntry(Guid id)
+    public async Task<List<TimeEntry>> DeleteTimeEntry(Guid id)
     {
         var timeEntry = await _context.TimeEntries.FirstOrDefaultAsync(te => te.Id == id);
         
         switch (timeEntry)
         {
             case null:
-                return null;
+                throw new ApplicationException($"Time entry with ID {id} could not be found");
             default:
                 _context.TimeEntries.Remove(timeEntry);
                 await _context.SaveChangesAsync();
@@ -43,15 +43,22 @@ public class TimeEntryRepository : ITimeEntryRepository
     public async Task<List<TimeEntry>> GetAllTimeEntries() => 
         await _context.TimeEntries.ToListAsync();
 
-    public async Task<TimeEntry?> GetTimeEntry(Guid id) => 
-        await _context.TimeEntries.FirstOrDefaultAsync(timeEntry => timeEntry.Id == id);
-
-    public async Task<TimeEntry?> UpdateTimeEntry(Guid id, TimeEntry updatedTimeEntry)
+    public async Task<TimeEntry> GetTimeEntry(Guid id)
     {
-        TimeEntry? timeEntry = await _context.TimeEntries.FirstOrDefaultAsync(te => te.Id == id);
+        var result = await _context.TimeEntries.FirstOrDefaultAsync(timeEntry => timeEntry.Id == id);
 
-        if (timeEntry is null) return null;
-        
+        return result switch
+        {
+            null => throw new ApplicationException($"Time entry with ID {id} could not be found"),
+            _ => result,
+        };
+    }
+
+    public async Task<TimeEntry> UpdateTimeEntry(Guid id, TimeEntry updatedTimeEntry)
+    {
+        TimeEntry? timeEntry = await _context.TimeEntries.FirstOrDefaultAsync(te => te.Id == id)
+            ?? throw new ApplicationException($"Time entry with ID {id} could not be found");
+
         bool isUpdated = false;
 
         if (!timeEntry.ProjectName.Equals(updatedTimeEntry.ProjectName, StringComparison.InvariantCultureIgnoreCase))
@@ -84,6 +91,6 @@ public class TimeEntryRepository : ITimeEntryRepository
         _context.TimeEntries.Update(timeEntry);
         await _context.SaveChangesAsync();
 
-        return await _context.TimeEntries.FindAsync(timeEntry.Id);
+        return await _context.TimeEntries.FirstAsync(te => te.Id == timeEntry.Id);
     }
 }
