@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Speakify.Blazor.Client\Speakify.Blazor.Client.csproj" />
+    <ProjectReference Include="..\..\Speakify.API\Speakify.API.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.8" />
   </ItemGroup>
 
