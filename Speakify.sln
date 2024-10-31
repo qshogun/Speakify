@@ -3,12 +3,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Speakify.API", "Speakify.API\Speakify.API.csproj", "{47A33A1E-3FEA-4AB3-8999-1E7BB2F7F3B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Speakify.API", "Speakify.API\Speakify.API.csproj", "{47A33A1E-3FEA-4AB3-8999-1E7BB2F7F3B9}"
 	ProjectSection(ProjectDependencies) = postProject
 		{BDF2BD38-2BB6-4C0C-8A04-05DD3D564E46} = {BDF2BD38-2BB6-4C0C-8A04-05DD3D564E46}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Speakify.Shared", "Speakify.Shared\Speakify.Shared.csproj", "{BDF2BD38-2BB6-4C0C-8A04-05DD3D564E46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Speakify.Shared", "Speakify.Shared\Speakify.Shared.csproj", "{BDF2BD38-2BB6-4C0C-8A04-05DD3D564E46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Speakify.Blazor", "Speakify.Blazor\Speakify.Blazor\Speakify.Blazor.csproj", "{EC1D2C38-ABB5-4F4D-8DFB-3624395A772C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{47A33A1E-3FEA-4AB3-8999-1E7BB2F7F3B9} = {47A33A1E-3FEA-4AB3-8999-1E7BB2F7F3B9}
+		{BDF2BD38-2BB6-4C0C-8A04-05DD3D564E46} = {BDF2BD38-2BB6-4C0C-8A04-05DD3D564E46}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Speakify.Blazor.Client", "Speakify.Blazor\Speakify.Blazor.Client\Speakify.Blazor.Client.csproj", "{B26AD5BE-5218-43A5-9BAE-4CFDF97AB0AB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{47A33A1E-3FEA-4AB3-8999-1E7BB2F7F3B9} = {47A33A1E-3FEA-4AB3-8999-1E7BB2F7F3B9}
+		{BDF2BD38-2BB6-4C0C-8A04-05DD3D564E46} = {BDF2BD38-2BB6-4C0C-8A04-05DD3D564E46}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +36,14 @@ Global
 		{BDF2BD38-2BB6-4C0C-8A04-05DD3D564E46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDF2BD38-2BB6-4C0C-8A04-05DD3D564E46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDF2BD38-2BB6-4C0C-8A04-05DD3D564E46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC1D2C38-ABB5-4F4D-8DFB-3624395A772C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC1D2C38-ABB5-4F4D-8DFB-3624395A772C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC1D2C38-ABB5-4F4D-8DFB-3624395A772C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC1D2C38-ABB5-4F4D-8DFB-3624395A772C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B26AD5BE-5218-43A5-9BAE-4CFDF97AB0AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B26AD5BE-5218-43A5-9BAE-4CFDF97AB0AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B26AD5BE-5218-43A5-9BAE-4CFDF97AB0AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B26AD5BE-5218-43A5-9BAE-4CFDF97AB0AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
