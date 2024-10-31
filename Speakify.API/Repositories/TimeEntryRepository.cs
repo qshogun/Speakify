@@ -61,11 +61,11 @@ public class TimeEntryRepository : ITimeEntryRepository
 
         bool isUpdated = false;
 
-        if (!timeEntry.ProjectName.Equals(updatedTimeEntry.ProjectName, StringComparison.InvariantCultureIgnoreCase))
+        if (!timeEntry.Project.Name.Equals(updatedTimeEntry.Project.Name, StringComparison.InvariantCultureIgnoreCase))
         {
-            if (!string.IsNullOrWhiteSpace(updatedTimeEntry.ProjectName))
+            if (!string.IsNullOrWhiteSpace(updatedTimeEntry.Project.Name))
             {
-                timeEntry.ProjectName = updatedTimeEntry.ProjectName;
+                timeEntry.Project.Name = updatedTimeEntry.Project.Name;
                 isUpdated = true;
             }
         }
