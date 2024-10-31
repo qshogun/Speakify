@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Speakify.API\Speakify.API.csproj" />
-    <ProjectReference Include="..\..\Speakify.Shared\Speakify.Shared.csproj" />
   </ItemGroup>
 
 </Project>
